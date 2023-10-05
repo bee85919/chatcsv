@@ -44,25 +44,14 @@ def csv_to_document(uploaded_file):
 if uploaded_file is not None:
     docs = csv_to_document(uploaded_file)
 
-    # Splitter
-    text_splitter = CharacterTextSplitter(
-        chunk_size = 1000,
-        chunk_overlap = 0,
-    )
-    texts = text_splitter.split_documents(docs)
-
-
-
     # Embedding
     embeddings_model = OpenAIEmbeddings()
 
-
     # Chroma
-    db = Chroma.from_documents(texts, embeddings_model)
-
+    db = Chroma.from_documents(docs, embeddings_model)
 
     # Generate Q&A
-    st.header("PDF에게 질문해보세요!")
+    st.header("CSV에게 질문해보세요!")
     question = st.text_input("질문을 입력하세요.")
     
     if st.button("질문하기"):
